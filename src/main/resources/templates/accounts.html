@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring-bank</title>
+</head>
+
+<body>
+
+<th:block th:include="index"></th:block>
+
+<h2>Accounts</h2>
+<h1></h1><td th:utext="${client_clientId}"></td></h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Account number</th>
+        <th>Account balance</th>
+    </tr>
+    <tr th:each="account : ${accounts}">
+        <td th:utext="${account.accountId}"></td>
+        <td th:utext="${account.accountNumber}"></td>
+        <td th:utext="${account.accountBalance}"></td>
+    </tr>
+
+</table>
+<td>
+    <a th:href="@{/newAccount(client_id=${client_clientId})}" custom:linkMethod="get">NEW ACCOUNT</a>
+</td>
+</body>
+</html>
