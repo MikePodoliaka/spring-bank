@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring bank</title>
+
+    <style>
+        body {background-color: #00e68d;}
+        h1   {color: #0128ff;}
+        h2   {color: #5503ff;}
+    </style>
+</head>
+
+<body>
+
+<th:block th:include="index"></th:block>
+
+<h1>Transactions</h1>
+
+<form th:action="@{/transfer}" method="get">
+    <input id="txtSearch" type="text" placeholder="Enter Name" name="keyword" >
+    <button type="submit">Filter</button>
+</form>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>RECEIVE ACCOUNT</th>
+        <th>SENDER ACCOUNT</th>
+        <th>SENDER NAME</th>
+        <th>DATE OF TRANSACTION</th>
+        <th>DESCRIPTION</th>
+        <th>AMOUNT</th>
+
+    </tr>
+    <tr th:each="transaction : ${transactions}">
+        <td th:utext="${transaction.transactionId}"></td>
+        <td th:utext="${transaction.receiveAcc}"></td>
+        <td th:utext="${transaction.senderAcc}"></td>
+        <td th:utext="${transaction.senderName}"></td>
+        <td th:utext="${transaction.dateOfTransaction}"></td>
+        <td th:utext="${transaction.description}"></td>
+        <td th:utext="${transaction.amount}"></td>
+    </tr>
+</table>
+<hr>
+</table>
+
+<form action="/transferMoney" method="post">
+    <div class="container col-lg-4">
+
+        <h2>NEW TRANSACTION</h2>
+        <hr>
+        <label for="sender_account"><b>Sender Account ID</b></label>
+        <input type="text" placeholder="Enter sender account ID" class="form-control"
+               id="sender_account" name="sender_account" required>
+        <label for="sender_name"><b>Sender Name</b></label>
+        <input type="text" placeholder="Enter sender name" class="form-control"
+               id="sender_name" name="sender_name" required>
+        <label for="receive_account"><b>Receive Account ID</b></label>
+        <input type="text" placeholder="Enter receive account ID" class="form-control"
+               id="receive_account" name="receive_account" required>
+        <br>
+        <label for="transfer_amount"><b>Amount</b></label>
+                <input type="number" placeholder="Enter amount" class="form-control"
+               id="transfer_amount" name="transfer_amount" required>
+        <label for="transaction_description"><b>Description</b></label>
+        <input type="text" placeholder="Enter description" class="form-control"
+               id="transaction_description" name="transaction_description" required>
+        <hr>
+        <button type="submit" class="registerbtn preview-iframe">NEW TRANSACTION</button>
+    </div>
+</form>
+
+</body>
+</html>
