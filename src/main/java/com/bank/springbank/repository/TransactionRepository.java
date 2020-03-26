@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction,Long> {
 
-    @Query(value = "SELECT * FROM transaction t WHERE t.sender_name LIKE %:keyword%", nativeQuery = true)
+    @Query(value = "SELECT * FROM transaction t" +
+            " WHERE t.sender_name LIKE %:keyword%", nativeQuery = true)
     List<Transaction> findByKeyword(@Param("keyword") String keyword);
 }

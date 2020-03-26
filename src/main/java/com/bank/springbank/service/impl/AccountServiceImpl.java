@@ -10,35 +10,30 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class AccountServiceImpl implements AccountService {
-    @Autowired
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
     @Autowired
     private ClientRepository clientRepository;
 
+    public AccountServiceImpl(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
+
     @Override
     public List<Account> clientAccounts(Long id) {
-
         return clientRepository.findById(id).get().getClientAccounts();
     }
 
     @Override
-    public BigDecimal moneyOfAllAccounts(Long id) {
-        return null;
-    }
-
-    @Override
     public Account newAccount(Long clientId) {
-        Random random=new Random();
-        Long numberAcc=random.nextLong();
-
-
+        Long numberAcc = ThreadLocalRandom.current().
+                nextLong(260000000, 260099999);
         Account account = new Account();
         Client currentClient = clientRepository.findById(clientId).get();
-        List<Account> list =currentClient.getClientAccounts();
+        List<Account> list = currentClient.getClientAccounts();
         account.setAccountBalance(BigDecimal.ZERO);
         account.setClient(currentClient);
         account.setAccountNumber(numberAcc);

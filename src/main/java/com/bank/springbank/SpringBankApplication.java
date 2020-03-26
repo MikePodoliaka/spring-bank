@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 public class SpringBankApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(SpringBankApplication.class, args);
     }
 

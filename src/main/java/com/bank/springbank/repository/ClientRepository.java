@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
-    @Query(value = "SELECT * FROM client c WHERE c.first_name LIKE %:keyword% or c.last_name LIKE %:keyword%", nativeQuery = true)
+    @Query(value = "SELECT * FROM client c WHERE" +
+            " c.first_name LIKE %:keyword% or c.last_name LIKE %:keyword%", nativeQuery = true)
     List<Client> findByKeyword(@Param("keyword") String keyword);
 }

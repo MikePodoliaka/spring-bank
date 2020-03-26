@@ -2,15 +2,17 @@ package com.bank.springbank.controller;
 
 import com.bank.springbank.entity.Client;
 import com.bank.springbank.service.ClientService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ClientController {
-    @Autowired
-    private ClientService clientService;
+    private final ClientService clientService;
+
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+    }
 
     @GetMapping(value = "/clients")
     public String getAllClients(Model model, String keyword) {

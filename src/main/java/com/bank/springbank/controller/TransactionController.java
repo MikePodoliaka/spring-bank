@@ -1,7 +1,6 @@
 package com.bank.springbank.controller;
 
 import com.bank.springbank.service.TransactionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -11,8 +10,11 @@ import java.math.BigDecimal;
 
 @Controller
 public class TransactionController {
-    @Autowired
-    private TransactionService transactionService;
+    private final TransactionService transactionService;
+
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
     @GetMapping(value = "/transfer")
     public String transactionsList(Model model, String keyword) {
@@ -21,7 +23,6 @@ public class TransactionController {
         } else {
             model.addAttribute("transactions", transactionService.transactionsList());
         }
-
         return "transactions";
     }
 
